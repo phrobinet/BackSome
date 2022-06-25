@@ -5,6 +5,7 @@ let url = 'https://gwaoqugot2.execute-api.us-east-1.amazonaws.com/user/p.robinet
 const useAuth = () => {
   const user = useState('user', () => null);
   const { supabase } = useSupabase();
+  const router = useRouter();
 
   supabase.auth.onAuthStateChange((e, session) => {
     user.value = session?.user || null
@@ -12,11 +13,8 @@ const useAuth = () => {
 
   // Creates a new user
   const signUp = async ({ email, password, ...metadata }) => {
-    console.log("click");
     // Check if user exist
     const { isFetching, data, err } = await useFetch(url)
-    console.log('data:', data._value)
-    console.log('err:', err)
     if(data._value != "Couldn't find user.") throw new Error('User already exist$');
     
     const { user: u, session, error } = await supabase.auth.signUp({
@@ -42,10 +40,13 @@ const useAuth = () => {
   };
 
   const signOut= async() => {
-    console.log("signout");
-    
     const { error } = await supabase.auth.signOut()
     if(error) throw error
+    router.push('/')
+  }
+
+  const isLoggedIn = () => {
+    return !!user.value
   }
 
   return {
@@ -53,6 +54,7 @@ const useAuth = () => {
     signUp,
     signIn,
     signOut,
+    isLoggedIn,
   }
 }
 export default useAuth
