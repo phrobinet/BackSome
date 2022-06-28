@@ -28,7 +28,7 @@ const handlerSubmit = async () => {
       await signIn({ email: input.email, password: input.password });
       const user = await getUser(input.email);
       profileStore.addUser(user);
-      useStorage("email", input.email);
+      useStorage("backStorage", input.email);
       router.push("/profile");
     } else {
       await signUp({ email: input.email, password: input.password });

@@ -23,7 +23,9 @@ const useProfileUrl = () => {
     }
   };
 
-  const updateUser = async(id) => {
+  const updateUser = async(id, data) => {
+    console.log('enter updateUser', id);    
+    console.log('data:', data)
     const { pending, error } = await $fetch(`https://gwaoqugot2.execute-api.us-east-1.amazonaws.com/user/${id}`, {
       method: 'PUT',
       body: data

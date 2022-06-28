@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive } from "vue";
 import { useProfileStore } from "~~/store/profileStore";
+import { startOfDay } from "date-fns";
 
 const profileStore = useProfileStore();
 
@@ -13,16 +14,16 @@ let item = reactive({
 });
 
 //Add point
-let idea = ref("");
-let image = ref("");
+const idea = ref("");
+const image = ref("");
 function addPoint(idea, image) {
   const point = {
     idea,
     image,
   };
   item.notes.push(point);
-  idea = "";
-  image = "";
+  this.idea = "";
+  this.image = "";
 }
 
 // SendMomory
@@ -32,14 +33,14 @@ function sendMemory() {
     title: item.title,
     location: item.location,
     layer: 0,
-    createdAt: new Date(),
+    createdAt: startOfDay(new Date()),
     notes: item.notes,
     updatedAt: null,
   };
   console.log("data: ", data);
 
-  // profileStore.u.notes.push(data);
-  // profileStore.createMemory(data);
+  profileStore.u.notes.push(data);
+  profileStore.createMemory(data);
   item.title = "";
   item.location = "";
   item.notes = [];

@@ -1,4 +1,4 @@
-import {useFetch } from '@vueuse/core';
+import {useFetch, useStorage } from '@vueuse/core';
 import { useProfileStore } from "../store/profileStore";
 const { getUser } = useProfileUrl();
 let url = 'https://gwaoqugot2.execute-api.us-east-1.amazonaws.com/user/p.robinet@gmail.com'
@@ -45,6 +45,7 @@ const useAuth = () => {
     const { error } = await supabase.auth.signOut()
     if(error) throw error
     router.push('/')
+    useStorage("backStorage", null)
   }
 
   const isLoggedIn = async () => {
