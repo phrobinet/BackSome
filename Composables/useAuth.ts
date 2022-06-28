@@ -1,8 +1,10 @@
 import {useFetch } from '@vueuse/core';
-
+import { useProfileStore } from "../store/profileStore";
+const { getUser } = useProfileUrl();
 let url = 'https://gwaoqugot2.execute-api.us-east-1.amazonaws.com/user/p.robinet@gmail.com'
 
 const useAuth = () => {
+  const profileStore = useProfileStore()
   const user = useState('user', () => null);
   const { supabase } = useSupabase();
   const router = useRouter();
@@ -45,7 +47,14 @@ const useAuth = () => {
     router.push('/')
   }
 
-  const isLoggedIn = () => {
+  const isLoggedIn = async () => {
+    if (user.value) {
+      if(profileStore.u === null){
+        console.log('profileStore empty');
+        profileStore.u = await getUser(user.value.email);
+      }
+      
+    }
     return !!user.value
   }
 

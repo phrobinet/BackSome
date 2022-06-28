@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
+import { useProfileStore } from "../../store/profileStore";
+import { useStorage } from "@vueuse/core";
 const { signUp, signIn, signOut, user } = useAuth();
+const { getUser } = useProfileUrl();
 
 const authState = ref<"Login" | "Signup">("Login");
 const authError = ref("");
+const profileStore = useProfileStore();
 const showConfirmationEmail = ref(false);
 const router = useRouter();
 
@@ -20,12 +24,17 @@ const toggleAuthState = () => {
 const handlerSubmit = async () => {
   try {
     if (authState.value === "Login") {
+      console.log("enter Card/Login");
       await signIn({ email: input.email, password: input.password });
+      const user = await getUser(input.email);
+      profileStore.addUser(user);
+      useStorage("email", input.email);
       router.push("/profile");
     } else {
       await signUp({ email: input.email, password: input.password });
       showConfirmationEmail.value = true;
     }
+
     input.email = "";
     input.password = "";
   } catch (error) {
@@ -81,9 +90,8 @@ const logout = () => {
         }}
       </p>
       <pre>
-      {{ user }}
-    </pre
-      >
+        {{ user }}
+      </pre>
     </div>
     <div v-else class="flex flex-col justify-center items-center">
       <h1 class="mb-4">Check email for confirmation</h1>

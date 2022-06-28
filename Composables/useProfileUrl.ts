@@ -11,8 +11,16 @@ const useProfileUrl = () => {
   };
 
   const getUser = async(id) => {
+    console.log('enter getUser');
+    
     const response: string = await $fetch(`https://gwaoqugot2.execute-api.us-east-1.amazonaws.com/user/${id}`)
-    return JSON.parse(response)
+    try {
+      console.log('response getUser:', response)
+      return JSON.parse(response)
+    } catch (error) {
+      console.log('error:', error)
+      
+    }
   };
 
   const updateUser = async(id) => {

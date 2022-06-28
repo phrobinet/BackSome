@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useProfileStore } from "~~/store/profileStore";
+
+const profileStore = useProfileStore();
+</script>
 
 <template>
   <div
