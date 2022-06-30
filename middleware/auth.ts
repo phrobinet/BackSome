@@ -7,11 +7,11 @@ export default defineNuxtRouteMiddleware(async () => {
   const { getUser } = useProfileUrl();
   const backStorage = useStorage('backStorage', 'email')
   
-
   if(!isLoggedIn()){    
-    console.log('!isLoggedIn():', !isLoggedIn())
     return  navigateTo('/')
   } else if(profileStore.u === null || profileStore.u === undefined){
+    console.log('enter getUser');
+    
     profileStore.u = await getUser(backStorage.value);
   }
 })

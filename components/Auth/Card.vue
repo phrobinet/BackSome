@@ -71,14 +71,15 @@ const logout = () => {
       <p v-if="authError" class="text-sm text-red-500">{{ authError }}</p>
       <button
         @click.prevent="handlerSubmit"
-        class="bg-green-400 py-4 px-3 w-full border-2 border-green-600 rounded-xl"
+        class="gradient py-4 px-3 w-2/3 rounded-xl bg-gradient-to-r from-teal-300 via-sky-500 to-purple-500 hover:shadow-xl hover:ring-1 hover:ring-purple-400 hover:ring-offset-2"
       >
         {{ authState === "Login" ? "Login" : "Submit" }}
       </button>
+
       <button
         @click.prevent="logout"
         v-if="user"
-        class="bg-green-400 py-4 px-3 w-full border-2 border-green-600 rounded-xl"
+        class="py-4 px-3 w-2/3 mt-4 bg-gradient-to-r from-teal-300 via-sky-500 to-purple-500 rounded-xl hover:shadow-xl hover:ring-1 hover:ring-purple-400 hover:ring-offset-2"
       >
         Logout
       </button>

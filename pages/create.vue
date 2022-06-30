@@ -102,26 +102,28 @@ definePageMeta({
             />
           </div>
         </div>
-
-        <button
-          class="px-4 flex items-center mx-auto py-2 tracking-wide text-white bg-gradient-to-l from-violet-500 to-purple-400 hover:bg-gradient-to-l hover:from-violet-700 rounded-md mt-5"
-          @click.prevent="addPoint(idea, image)"
-        >
-          Add Item
-        </button>
+        <div class="flex flex-col justify-center items-center">
+          <button
+            class="px-4 mx-auto py-2 tracking-wide bg-gradient-to-r from-teal-300 via-sky-500 to-purple-500 hover:shadow-xl hover:ring-1 hover:ring-purple-400 hover:ring-offset-2 rounded-xl w-2/3 text-center mt-5"
+            @click.prevent="addPoint(idea, image)"
+          >
+            Add Item
+          </button>
+        </div>
 
         <div class="text-center">
           <p v-for="(item, index) in item.notes" :key="index">
             {{ item.idea }} - {{ item.image }}
           </p>
         </div>
-
-        <button
-          class="mt-6 w-full px-4 py-2 tracking-wide text-white bg-gradient-to-r from-violet-500 to-purple-400 hover:bg-gradient-to-r hover:from-violet-700 rounded-md"
-          @click.prevent="sendMemory"
-        >
-          Register
-        </button>
+        <div class="flex flex-col justify-center items-center">
+          <button
+            class="mt-6 w-2/3 mx-auto px-4 py-2 tracking-wide rounded-xl bg-gradient-to-r from-teal-300 via-sky-500 to-purple-500 hover:shadow-xl hover:ring-1 hover:ring-purple-400 hover:ring-offset-2"
+            @click.prevent="sendMemory"
+          >
+            Register
+          </button>
+        </div>
       </form>
     </div>
   </div>

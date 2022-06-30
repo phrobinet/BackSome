@@ -45,14 +45,14 @@ function toggleIdea() {
     <div class="flex flex-col sm:flex-row">
       <button
         @click="toggleImage"
-        class="rounded-lg bg-gradient-to-r from-orange-500 to-yellow-600 py-3 px-2 text-white sm:w-1/2"
+        class="rounded-lg bg-gradient-to-r from-indigo-300 to-purple-400 py-3 px-2 text-white sm:w-1/2"
       >
         Show Image
       </button>
 
       <button
         @click="toggleIdea"
-        class="sm:ml-2 mt-2 sm:mt-0 rounded-lg bg-gradient-to-l from-orange-500 to-yellow-600 py-3 px-2 text-white sm:w-1/2"
+        class="sm:ml-2 mt-2 sm:mt-0 rounded-lg bg-gradient-to-r from-indigo-300 to-purple-400 py-3 px-2 text-white sm:w-1/2"
       >
         Show Idea
       </button>

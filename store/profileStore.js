@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-const { updateUser, checkToday } = useProfileUrl();
+const { updateUser, checkToday, dbMemory } = useProfileUrl();
 import { format, startOfDay, addDays } from 'date-fns'
 
 
@@ -10,7 +10,8 @@ export const useProfileStore = defineStore('profileStore', {
       date: format(new Date(2014, 1, 11), 'MM/dd/yyyy'),
       u: null,
       notes: [],
-      isToCheck: false
+      isToCheck: false,
+      dbMemory: null
     }
   },
   actions: {
@@ -19,11 +20,16 @@ export const useProfileStore = defineStore('profileStore', {
     },
 
     getAllNotes() {
-      console.log('enter getAllNotes');
       this.notes = [];
-      console.log('this.notes:', this.notes)
       this.isToCheck = false
       return this.notes = this.u.notes
+    },
+
+    async addDBNumber(){
+      console.log('enter addDB');
+      let data = await dbMemory()
+      console.log('data:', data)
+
     },
 
     updateMemory(index) {

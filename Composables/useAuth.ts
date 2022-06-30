@@ -45,17 +45,19 @@ const useAuth = () => {
     const { error } = await supabase.auth.signOut()
     if(error) throw error
     router.push('/')
-    useStorage("backStorage", null)
+    const email = useStorage("backStorage", null)
+    email.value = null;
   }
 
-  const isLoggedIn = async () => {
-    if (user.value) {
-      if(profileStore.u === null){
-        console.log('profileStore empty');
-        profileStore.u = await getUser(user.value.email);
-      }
+  const isLoggedIn = () => {
+    // if (user.value) {
+    //   if(profileStore.u === null){
+    //     profileStore.u = await getUser(user.value.email);
+    //   }
       
-    }
+    // }
+    // console.log('user.value: ', user.value);
+    
     return !!user.value
   }
 
