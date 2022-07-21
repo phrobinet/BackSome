@@ -10,6 +10,7 @@ const profileStore = useProfileStore();
 let min = ref(1);
 let max = ref(10);
 let showReponse = ref(false);
+let showdataPAO = ref(false);
 let arrNumbers = ref([]);
 
 function getNumber(min, max) {
@@ -19,7 +20,6 @@ function getNumber(min, max) {
   while (i < 3) {
     let num = Math.floor(Math.random() * (max - min)) + min;
     i++;
-    // if (num < 10) num = "0" + num;
     arrNumbers.value.push(num);
   }
   console.log('arrNumber: ', arrNumbers);
@@ -30,15 +30,23 @@ function getNumber(min, max) {
 function toggleReponse() {
   showReponse.value = !showReponse.value;
 }
+function toggleDataBase() {
+  console.log('click toggleDataBase');
+
+  showdataPAO.value = !showdataPAO.value;
+}
 
 // Middleware
 definePageMeta({
   middleware: 'auth',
 });
 </script>
+
 <template>
   <div class="bg-gray100 px-7">
-    <h1 class="text-center text-2xl font-mono py-7">Training Page</h1>
+    <h1 class="text-center text-2xl font-mono py-7">
+      Training Page {{ showdataPAO }}
+    </h1>
 
     <div
       class="flex flex-col items-center justify-center w-full p-6 m-auto bg-white border-t border-purple-600 rounded shadow-lg shadow-purple-800/50 max-w-md lg:max-w-xl"
@@ -69,9 +77,18 @@ definePageMeta({
         <div v-if="arrNumbers.length > 0">
           <button
             @click="toggleReponse"
-            class="mt-6 w-full px-4 py-2 tracking-wide text-white rounded-xl text-white bg-gradient-to-r from-teal-300 via-sky-500 to-purple-500 hover:shadow-xl hover:ring-1 hover:ring-purple-400 hover:ring-offset-2"
+            class="mt-6 w-full px-4 py-2 tracking-wide text-white rounded-xl bg-gradient-to-r from-teal-300 via-sky-500 to-purple-500 hover:shadow-xl hover:ring-1 hover:ring-purple-400 hover:ring-offset-2"
           >
             Réponse
+          </button>
+        </div>
+
+        <div>
+          <button
+            @click="toggleDataBase"
+            class="mt-6 w-full px-4 py-2 tracking-wide text-white rounded-xl bg-gradient-to-r from-teal-300 via-sky-500 to-purple-500 hover:shadow-xl hover:ring-1 hover:ring-purple-400 hover:ring-offset-2"
+          >
+            Show PAO List
           </button>
         </div>
       </div>
@@ -91,6 +108,18 @@ definePageMeta({
         <span class="text-purple-700">
           {{ datas[arrNumbers[2] - 1].objet }}</span
         >
+      </p>
+    </div>
+    <div
+      v-if="showdataPAO"
+      class="flex flex-col mt-7 items-center justify-center w-full p-6 m-auto bg-white border-t border-purple-600 rounded shadow-lg shadow-purple-800/50 max-w-xl lg:max-w-xl"
+    >
+      <p v-for="data in datas" :key="data.num" class="text-center mt-7 text-xl">
+        <span class="text-stone-800">{{ data.num }}   </span>
+        <span class="text-blue-500">{{ data.pers }} - </span>
+        <span class="text-green-600"> {{ data.action }}</span>
+        avec
+        <span class="text-purple-700"> {{ data.objet }}</span>
       </p>
     </div>
   </div>

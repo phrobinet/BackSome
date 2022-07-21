@@ -23,7 +23,7 @@ onClickOutside(dropdownRef, (event) => {
 </script>
 
 <template>
-  <div class="flex space-x-4">
+  <div class="flex items-center justify-center">
     <div v-if="!profileStore.isLog">
       <nuxt-link
         class="text-gray-700 px-3 py-2 rounded-md text-md font-medium"
