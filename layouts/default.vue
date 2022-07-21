@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navy />
+    <TheNavy />
     <slot />
   </div>
 </template>

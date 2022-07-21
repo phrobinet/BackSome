@@ -14,19 +14,19 @@ const isMenuShow = ref(false);
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
               <nuxt-link
                 to="/revision"
-                class="text-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium"
+                class="text-gray-700 hover:border-y-2 hover:border-gray-700 px-3 py-2 text-md font-medium"
                 >Révision</nuxt-link
               >
 
               <nuxt-link
                 to="/create"
-                class="text-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium"
+                class="text-gray-700 hover:border-y-2 hover:border-gray-700 px-3 py-2 text-md font-medium"
                 >Create</nuxt-link
               >
 
               <nuxt-link
                 to="training"
-                class="text-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium"
+                class="text-gray-700 hover:border-y-2 hover:border-gray-700 px-3 py-2 text-md font-medium"
                 >Training</nuxt-link
               >
             </div>
@@ -36,7 +36,6 @@ const isMenuShow = ref(false);
       </div>
     </div>
 
-    <!-- Mobile menu, show/hide based on menu state. -->
     <!-- Mobile menu, show/hide based on menu state. -->
     <div class="sm:hidden" id="mobile-menu" v-if="isMenuShow">
       <div class="px-2 pt-2 pb-3 space-y-1">
@@ -69,5 +68,3 @@ const isMenuShow = ref(false);
     </div>
   </nav>
 </template>
-
-<style lang="scss" scoped></style>

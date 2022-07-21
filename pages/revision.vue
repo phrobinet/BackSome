@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useProfileStore } from "~~/store/profileStore";
+import { useProfileStore } from '~~/store/profileStore';
 
 definePageMeta({
-  middleware: "auth",
+  middleware: 'auth',
 });
 
 const profileStore = useProfileStore();
@@ -13,16 +13,6 @@ function checkToday() {
 
 const allMemories = async () => {
   profileStore.getAllNotes();
-};
-
-const nextLevel = ({ index }) => {
-  profileStore.updateMemory(index);
-};
-
-const preLevel = ({ index }) => {
-  console.log("enter preLevel");
-
-  profileStore.dontRemember(index);
 };
 </script>
 
@@ -56,9 +46,8 @@ const preLevel = ({ index }) => {
           v-else
           v-for="(data, index) in profileStore.notes"
           :key="index"
-          :index="index"
+          :id="data.id"
           :data="data"
-          @nextLevel="nextLevel"
           @preLevel="preLevel"
         />
       </div>

@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { onClickOutside } from "@vueuse/core";
-import { useProfileStore } from "../store/profileStore";
+import { ref } from 'vue';
+import { onClickOutside } from '@vueuse/core';
+import { useProfileStore } from '../store/profileStore';
 const modal = ref(false);
 const modalRef = ref(null);
 
 const profileStore = useProfileStore();
+const { isLoggedIn, signOut } = useAuth();
 
 onClickOutside(modalRef, (event) => {
   console.log(event);
@@ -14,26 +15,28 @@ onClickOutside(modalRef, (event) => {
 
 const dropdown = ref(false);
 const dropdownRef = ref(null);
+
 onClickOutside(dropdownRef, (event) => {
   console.log(event);
   dropdown.value = false;
 });
-
-const { isLoggedIn, signOut } = useAuth();
-// const userLoggedIn = isLoggedIn();
 </script>
 
 <template>
-  <div>
-    <div v-if="!isLoggedIn">
-      <nuxt-link to="/">Connexion / Inscription</nuxt-link>
+  <div class="flex space-x-4">
+    <div v-if="!profileStore.isLog">
+      <nuxt-link
+        class="text-gray-700 px-3 py-2 rounded-md text-md font-medium"
+        to="/"
+        >Connexion / Inscription</nuxt-link
+      >
     </div>
     <div v-else class="ml-2 relative inline-block">
       <button
         @click="dropdown = true"
-        class="text-gray-700 hover:text-white px-3 py-2 rounded-md text-md font-medium"
+        class="text-gray-700 hover:border-y-2 hover:border-gray-700 px-3 py-2 text-md font-medium"
       >
-        Open Dropdown
+        Hello
       </button>
       <div v-if="dropdown" ref="dropdownRef" class="dropdown-inner">
         <nuxt-link to="/profile" class="cursor-pointer">Mon Profile</nuxt-link>

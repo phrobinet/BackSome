@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useProfileStore } from "../store/profileStore";
+import { ref } from 'vue';
+import { useProfileStore } from '../store/profileStore';
 const props = defineProps({
   data: {
     type: Object,
     required: true,
   },
-  index: {
+  id: {
     type: Number,
     required: true,
   },
@@ -28,6 +28,16 @@ function toggleImage() {
 function toggleIdea() {
   showIdea.value = !showIdea.value;
 }
+
+function next(id) {
+  profileStore.updateMemory(id);
+  showIdea.value = false;
+  showImage.value = false;
+}
+
+function dontRemember(id) {
+  profileStore.dontRemember(id);
+}
 </script>
 <template>
   <div
@@ -36,6 +46,8 @@ function toggleIdea() {
     <h2 class="text-center text-2xl text-gray-900">
       {{ data.title }}
     </h2>
+
+    <p class="text-sm">Quel niveau: {{ data.layer }}</p>
 
     <p @click="toggleLocation" class="cursor-pointer py-4 text-gray-600">
       A quel endroit ?
@@ -61,7 +73,8 @@ function toggleIdea() {
     <div class="flex flex-col items-center justify-center py-7">
       <p v-for="(item, index) in data.notes" :key="index">
         <span v-if="showImage">{{ item.image }}</span>
-        <span v-if="showIdea"> - {{ item.idea }}</span>
+        <span v-if="showIdea && showImage"> - </span>
+        <span v-if="showIdea">{{ item.idea }}</span>
       </p>
     </div>
 
@@ -70,13 +83,13 @@ function toggleIdea() {
       class="flex flex-col items-center justify-center"
     >
       <button
-        @click="$emit('nextLevel', { data, index })"
+        @click="next(id)"
         class="rounded-lg w-full bg-gradient-to-r from-indigo-500 to-violet-600 py-3 px-2 text-white hover:bg-gradient-to-l hover:from-indigo-500 hover:to-violet-600"
       >
         Next Level
       </button>
       <button
-        @click="$emit('preLevel', { data, index })"
+        @click="dontRemember(id)"
         class="rounded-lg mt-3 w-full bg-gradient-to-r from-indigo-500 to-violet-600 py-3 px-2 text-white hover:bg-gradient-to-l hover:from-indigo-500 hover:to-violet-600"
       >
         Don't remember

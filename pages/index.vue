@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useProfileStore } from "~~/store/profileStore";
+import { useProfileStore } from '~~/store/profileStore';
 
 const profileStore = useProfileStore();
 </script>

@@ -1,44 +1,44 @@
 <script setup lang="ts">
-import { reactive, ref } from "vue";
-import { useProfileStore } from "../../store/profileStore";
-import { useStorage } from "@vueuse/core";
+import { reactive, ref } from 'vue';
+import { useProfileStore } from '../../store/profileStore';
+import { useStorage } from '@vueuse/core';
 const { signUp, signIn, signOut, user } = useAuth();
 const { getUser } = useProfileUrl();
 
-const authState = ref<"Login" | "Signup">("Login");
-const authError = ref("");
+const authState = ref<'Login' | 'Signup'>('Login');
+const authErrorMessage = ref('');
 const profileStore = useProfileStore();
 const showConfirmationEmail = ref(false);
 const router = useRouter();
 
 const input = reactive({
-  password: "",
-  email: "",
+  password: '',
+  email: '',
 });
 
 const toggleAuthState = () => {
-  if (authState.value === "Login") authState.value = "Signup";
-  else authState.value = "Login";
+  if (authState.value === 'Login') authState.value = 'Signup';
+  else authState.value = 'Login';
 };
 
 const handlerSubmit = async () => {
   try {
-    if (authState.value === "Login") {
-      console.log("enter Card/Login");
+    if (authState.value === 'Login') {
+      console.log('enter Card/Login');
       await signIn({ email: input.email, password: input.password });
       const user = await getUser(input.email);
       profileStore.addUser(user);
-      useStorage("backStorage", input.email);
-      router.push("/profile");
+      useStorage('backStorage', input.email);
+      router.push('/profile');
     } else {
       await signUp({ email: input.email, password: input.password });
       showConfirmationEmail.value = true;
     }
 
-    input.email = "";
-    input.password = "";
+    input.email = '';
+    input.password = '';
   } catch (error) {
-    authError.value = error.message;
+    authErrorMessage.value = error.message;
   }
 };
 
@@ -68,12 +68,14 @@ const logout = () => {
         placeholder="Password"
         v-model="input.password"
       />
-      <p v-if="authError" class="text-sm text-red-500">{{ authError }}</p>
+      <p v-if="authErrorMessage" class="text-sm text-red-500">
+        {{ authErrorMessage }}
+      </p>
       <button
         @click.prevent="handlerSubmit"
         class="gradient py-4 px-3 w-2/3 rounded-xl bg-gradient-to-r from-teal-300 via-sky-500 to-purple-500 hover:shadow-xl hover:ring-1 hover:ring-purple-400 hover:ring-offset-2"
       >
-        {{ authState === "Login" ? "Login" : "Submit" }}
+        {{ authState === 'Login' ? 'Login' : 'Submit' }}
       </button>
 
       <button
@@ -85,14 +87,11 @@ const logout = () => {
       </button>
       <p class="cursor-pointer" @click="toggleAuthState">
         {{
-          authState === "Login"
+          authState === 'Login'
             ? "Don't have an account? Create one now"
-            : "Already have an account? Go ahead an log in"
+            : 'Already have an account? Go ahead an log in'
         }}
       </p>
-      <pre>
-        {{ user }}
-      </pre>
     </div>
     <div v-else class="flex flex-col justify-center items-center">
       <h1 class="mb-4">Check email for confirmation</h1>

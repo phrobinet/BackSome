@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { ref, reactive } from "vue";
-import { useProfileStore } from "~~/store/profileStore";
-import { startOfDay } from "date-fns";
+import { ref, reactive } from 'vue';
+import { useProfileStore } from '~~/store/profileStore';
+import { startOfDay } from 'date-fns';
 
 const profileStore = useProfileStore();
 
 const router = useRouter();
 
 let item = reactive({
-  title: "",
+  title: '',
   notes: [],
-  location: "",
+  location: '',
 });
 
 //Add point
-const idea = ref("");
-const image = ref("");
+const idea = ref('');
+const image = ref('');
 function addPoint(idea, image) {
   const point = {
     idea,
     image,
   };
   item.notes.push(point);
-  this.idea = "";
-  this.image = "";
+  this.idea = '';
+  this.image = '';
 }
 
 // SendMomory
@@ -37,18 +37,18 @@ function sendMemory() {
     notes: item.notes,
     updatedAt: null,
   };
-  console.log("data: ", data);
+  console.log('data: ', data);
 
   profileStore.u.notes.push(data);
   profileStore.createMemory(data);
-  item.title = "";
-  item.location = "";
+  item.title = '';
+  item.location = '';
   item.notes = [];
 }
 
 // Middleware
 definePageMeta({
-  middleware: "auth",
+  middleware: 'auth',
 });
 </script>
 

@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref, reactive } from "vue";
-import { useProfileStore } from "../store/profileStore";
-import datas from "../db.json";
-import func from "~~/vue-temp/vue-editor-bridge";
+import { ref, reactive } from 'vue';
+import { useProfileStore } from '../store/profileStore';
+import datas from '../db.json';
 
 const { dbMemory } = useProfileUrl();
 const profileStore = useProfileStore();
@@ -23,7 +22,7 @@ function getNumber(min, max) {
     // if (num < 10) num = "0" + num;
     arrNumbers.value.push(num);
   }
-  console.log("arrNumber: ", arrNumbers);
+  console.log('arrNumber: ', arrNumbers);
 
   return arrNumbers;
 }
@@ -34,7 +33,7 @@ function toggleReponse() {
 
 // Middleware
 definePageMeta({
-  middleware: "auth",
+  middleware: 'auth',
 });
 </script>
 <template>
@@ -64,7 +63,7 @@ definePageMeta({
             v-for="(arrNumber, index) in arrNumbers"
             :key="index"
           >
-            {{ arrNumber < 10 ? "0" + arrNumber : arrNumber }}
+            {{ arrNumber < 10 ? '0' + arrNumber : arrNumber }}
           </p>
         </div>
         <div v-if="arrNumbers.length > 0">
@@ -83,7 +82,7 @@ definePageMeta({
     >
       <p class="text-center mt-7 text-xl">
         <span class="text-blue-500"
-          >{{ datas[arrNumbers[0] - 1].pers + " " }}
+          >{{ datas[arrNumbers[0] - 1].pers + ' ' }}
         </span>
         <span class="text-green-600">
           {{ datas[arrNumbers[1] - 1].action }}</span
